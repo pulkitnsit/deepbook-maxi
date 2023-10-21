@@ -1,0 +1,26 @@
+{
+  "name": "deepbook-maxi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://pulkitnsit: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@github.com/pulkitnsit/deepbook-maxi.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pulkitnsit/deepbook-maxi/issues"
+  },
+  "homepage": "https://github.com/pulkitnsit/deepbook-maxi#readme",
+  "dependencies": {
+    "@mysten/bcs": "^0.7.4",
+    "@mysten/deepbook": "^0.4.2",
+    "@mysten/sui.js": "^0.43.2",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2"
+  }
+}
