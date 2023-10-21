@@ -46,18 +46,11 @@ export async function executeStrategy() {
   console.log("Ask Quantities:", result.askQuantities);
   console.log("=====Strategy Ends=====")
 
-  // for (let i = 0; i < 3; i++) {
-  //   console.log("BigInt(result.bidPrices[0])", BigInt(Math.round(result.bidPrices[i]) * 100000));
-  //   console.log("BigInt(result.bidQuantities[0])", BigInt(Math.round(result.bidQuantities[i] * 10000000)));
-  // }
-
-  // await placeLimitOrders(BigInt(Math.round(result.bidPrices[0] * 100000)), BigInt(Math.round(result.bidQuantities[0] * 10000000)), "bid")
-  // await placeLimitOrders(BigInt(Math.round(result.bidPrices[0] * 100000)), 100000n, "bid")
-  await placeLimitOrders(1000500000n, 100000n, "bid")
-  await placeLimitOrders(1000400000n, 200000n, "bid")
-  await placeLimitOrders(1000200000n, 400000n, "bid")
-  await placeLimitOrders(1000800000n, 100000n, "ask")
-  await placeLimitOrders(1000900000n, 200000n, "ask")
-  await placeLimitOrders(1001100000n, 400000n, "ask")
+  for (let i = 0; i < 3; i++) {
+    console.log("BigInt(result.bidPrices[0])", BigInt(Math.round(result.bidPrices[i]) * 100000));
+    console.log("BigInt(result.bidQuantities[0])", BigInt(Math.round(result.bidQuantities[i] * 10000000)));
+    await placeLimitOrders(BigInt(Math.round(result.bidPrices[i] * 100000)), BigInt(Math.round(result.bidQuantities[i] * 10000000)), "bid")
+    await placeLimitOrders(BigInt(Math.round(result.askPrices[i] * 100000)), BigInt(Math.round(result.askQuantities[i] * 10000000)), "ask")
+  }
   await getOpenOrders()
 }
