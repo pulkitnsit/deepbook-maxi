@@ -30,11 +30,12 @@ const deepbook_client = new DeepBookClient(local_client);
 deepbook_client.setAccountCap(process.env.ACCOUNT_CAP);
 const poolId = '0x5deafda22b6b86127ea4299503362638bea0ca33bb212ea3a67b029356b8b955';
 
-export async function placeLimitOrders() {
-  const limit_order_txn_ask = await deepbook_client.placeLimitOrder(poolId, 1003700000n, 100000n, "ask");
-  const limit_ask = await local_client.signAndExecuteTransactionBlock({transactionBlock: limit_order_txn_ask, signer: keypair});
-  console.log("limit_ask: ", limit_ask);
-  return limit_ask
+export async function placeLimitOrders(price, quantity, orderType) {
+  // const limit_order_txn_ask = await deepbook_client.placeLimitOrder(poolId, 1003700000n, 100000n, "ask");
+  const limit_order_txn = await deepbook_client.placeLimitOrder(poolId, price, quantity, orderType);
+  const limit_order = await local_client.signAndExecuteTransactionBlock({transactionBlock: limit_order_txn, signer: keypair});
+  console.log("orderType: ", limit_order);
+  return limit_order
 }
 
 export async function getOpenOrders() {
@@ -67,4 +68,17 @@ export async function deposit() {
   const usdtDepositTxn = await deepbook_client.deposit(poolId, usdtCoin, BigInt(2295586));
   const usdtDepositRec = await local_client.signAndExecuteTransactionBlock({transactionBlock: usdtDepositTxn, signer: keypair});
   console.log("usdtDepositRec: ", usdtDepositRec);
+}
+
+export async function cancelAll() {
+  const cancelAllTxn = await deepbook_client.cancelAllOrders(poolId);
+  const cancelAllRec = await local_client.signAndExecuteTransactionBlock({transactionBlock: cancelAllTxn, signer: keypair});
+  console.log("cancelAllRec: ", cancelAllRec);
+  return cancelAllRec
+}
+
+export async function getMarketPrice() {
+  const marketPrice = await deepbook_client.getMarketPrice(poolId);
+  console.log("marketPrice: ", marketPrice);
+  return marketPrice
 }

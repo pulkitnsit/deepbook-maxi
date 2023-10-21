@@ -1,20 +1,24 @@
 import express from 'express'
-import { getOpenOrders } from './deepbookUtil.mjs'
-import { stoikovMarketMaker } from './stoikovMarketMaker.mjs'
+import { getOpenOrders, cancelAll } from './deepbookUtil.mjs'
+import { executeStrategy } from './stoikovMarketMaker.mjs'
 
 const app = express()
-const port = 3000
+const port = 3001
 
 app.get('/orders', async (req, res) => {
   const orders = await getOpenOrders()
-  console.log('orders: ', orders)
   res.send(orders)
 })
 
 app.get('/strategy', async (req, res) => {
-  const strategy = await stoikovMarketMaker()
-  console.log('strategy: ', strategy)
+  const strategy = await executeStrategy()
   res.send(strategy)
+})
+
+app.get('/cancel', async (req, res) => {
+  await cancelAll();
+  const orders = await getOpenOrders()
+  res.send(orders)
 })
 
 app.listen(port, () => {
